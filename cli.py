@@ -23,16 +23,20 @@ def build_parser() -> argparse.ArgumentParser:
 def run(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
+    connection = None
 
     try:
-        with get_connection() as connection:
-            return args.handler(connection, args)
+        connection = get_connection()
+        return args.handler(connection, args)
     except (ValidationError, NotFoundError) as exc:
         print(f"Error: {exc}")
         return 1
     except sqlite3.Error as exc:
         print(f"Database error: {exc}")
         return 1
+    finally:
+        if connection is not None:
+            connection.close()
 
 
 def _build_project_parser(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:

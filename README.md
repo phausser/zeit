@@ -21,6 +21,12 @@ python3 main.py --help
 
 Die Datenbank wird beim ersten Start automatisch unter `~/.zeit/zeit.db` angelegt.
 
+## Tests
+
+```bash
+python3 -m unittest discover -s tests -v
+```
+
 ## Beispiele
 
 ```bash
