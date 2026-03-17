@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import sqlite3
 
-from projects import get_project
-from utils import validate_date_range
+from .projects import get_project
+from .utils import validate_date_range
 
 
 def report_by_project(
@@ -13,15 +13,6 @@ def report_by_project(
     to_date: str | None,
 ) -> list[sqlite3.Row]:
     parsed_from, parsed_to = validate_date_range(from_date, to_date)
-    query = """
-        SELECT
-            p.id,
-            p.name,
-            p.is_active,
-            COALESCE(SUM(te.hours), 0) AS total_hours
-        FROM projects p
-        LEFT JOIN time_entries te ON te.project_id = p.id
-    """
     params: list[object] = []
     filters: list[str] = []
 
@@ -33,15 +24,6 @@ def report_by_project(
         filters.append("te.entry_date <= ?")
         params.append(parsed_to)
 
-    if filters:
-        query += " AND " + " AND ".join(filters)
-
-    query += """
-        GROUP BY p.id, p.name, p.is_active
-        ORDER BY total_hours DESC, p.name COLLATE NOCASE ASC
-    """
-
-    # Keep projects without matching time entries in the report.
     if filters:
         query = """
             SELECT
@@ -57,6 +39,18 @@ def report_by_project(
             GROUP BY p.id, p.name, p.is_active
             ORDER BY total_hours DESC, p.name COLLATE NOCASE ASC
         """.format(conditions=" AND ".join(filters))
+    else:
+        query = """
+            SELECT
+                p.id,
+                p.name,
+                p.is_active,
+                COALESCE(SUM(te.hours), 0) AS total_hours
+            FROM projects p
+            LEFT JOIN time_entries te ON te.project_id = p.id
+            GROUP BY p.id, p.name, p.is_active
+            ORDER BY total_hours DESC, p.name COLLATE NOCASE ASC
+        """
 
     cursor = connection.execute(query, params)
     return list(cursor.fetchall())

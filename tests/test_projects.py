@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-import projects
 from tests.helpers import TempDatabaseTestCase
-from utils import ValidationError
+from zeit import projects
+from zeit.utils import ValidationError
 
 
 class ProjectTests(TempDatabaseTestCase):

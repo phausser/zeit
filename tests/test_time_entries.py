@@ -1,9 +1,8 @@
 from __future__ import annotations
 
-import projects
-import time_entries
 from tests.helpers import TempDatabaseTestCase
-from utils import NotFoundError, ValidationError
+from zeit import projects, time_entries
+from zeit.utils import NotFoundError, ValidationError
 
 
 class TimeEntryTests(TempDatabaseTestCase):

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import sqlite3
 
-from utils import NotFoundError, ValidationError, now_timestamp, validate_project_name
+from .utils import NotFoundError, ValidationError, now_timestamp, validate_project_name
 
 
 def add_project(connection: sqlite3.Connection, name: str, description: str | None) -> int:
@@ -109,7 +109,9 @@ def get_project(connection: sqlite3.Connection, project_id: int) -> sqlite3.Row:
 def ensure_active_project(connection: sqlite3.Connection, project_id: int) -> sqlite3.Row:
     project = get_project(connection, project_id)
     if not bool(project["is_active"]):
-        raise ValidationError(f"Project {project_id} is archived and cannot receive new time entries.")
+        raise ValidationError(
+            f"Project {project_id} is archived and cannot receive new time entries."
+        )
     return project
 
 

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import io
+import sys
 import tempfile
 import unittest
 from contextlib import contextmanager
@@ -8,7 +9,13 @@ from contextlib import redirect_stdout
 from pathlib import Path
 from unittest.mock import patch
 
-import db
+ROOT_DIR = Path(__file__).resolve().parent.parent
+SRC_DIR = ROOT_DIR / "src"
+
+if str(SRC_DIR) not in sys.path:
+    sys.path.insert(0, str(SRC_DIR))
+
+from zeit import cli, db
 
 
 class TempDatabaseTestCase(unittest.TestCase):
@@ -36,8 +43,6 @@ class TempDatabaseTestCase(unittest.TestCase):
             connection.close()
 
     def run_cli(self, argv: list[str]) -> tuple[int, str]:
-        import cli
-
         output = io.StringIO()
         with redirect_stdout(output):
             exit_code = cli.run(argv)

@@ -16,7 +16,7 @@ chmod +x zeit
 Alternativ:
 
 ```bash
-python3 main.py --help
+PYTHONPATH=src python3 -m zeit --help
 ```
 
 Die Datenbank wird beim ersten Start automatisch unter `~/.zeit/zeit.db` angelegt.

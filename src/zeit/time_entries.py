@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import sqlite3
 
-from projects import ensure_active_project
-from utils import now_timestamp, parse_date, validate_date_range, validate_hours
+from .projects import ensure_active_project
+from .utils import now_timestamp, parse_date, validate_date_range, validate_hours
 
 
 def add_time_entry(

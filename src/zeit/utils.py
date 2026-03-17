@@ -41,11 +41,16 @@ def validate_project_name(name: str) -> str:
 
 def validate_hours(hours: float) -> float:
     if hours <= 0 or hours > 24:
-        raise ValidationError("Hours must be greater than 0 and less than or equal to 24.")
+        raise ValidationError(
+            "Hours must be greater than 0 and less than or equal to 24."
+        )
     return hours
 
 
-def validate_date_range(from_date: str | None, to_date: str | None) -> tuple[str | None, str | None]:
+def validate_date_range(
+    from_date: str | None,
+    to_date: str | None,
+) -> tuple[str | None, str | None]:
     parsed_from = parse_optional_date(from_date, field_name="from") if from_date else None
     parsed_to = parse_optional_date(to_date, field_name="to") if to_date else None
 

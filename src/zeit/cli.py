@@ -3,11 +3,9 @@ from __future__ import annotations
 import argparse
 import sqlite3
 
-import projects
-import reports
-import time_entries
-from db import get_connection
-from utils import NotFoundError, ValidationError, print_table
+from . import projects, reports, time_entries
+from .db import get_connection
+from .utils import NotFoundError, ValidationError, print_table
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -89,12 +87,18 @@ def _build_report_parser(subparsers: argparse._SubParsersAction[argparse.Argumen
     report_parser = subparsers.add_parser("report", help="Create reports.")
     report_subparsers = report_parser.add_subparsers(dest="report_command", required=True)
 
-    by_project_parser = report_subparsers.add_parser("by-project", help="Report total hours by project.")
+    by_project_parser = report_subparsers.add_parser(
+        "by-project",
+        help="Report total hours by project.",
+    )
     by_project_parser.add_argument("--from", dest="from_date")
     by_project_parser.add_argument("--to", dest="to_date")
     by_project_parser.set_defaults(handler=_handle_report_by_project)
 
-    project_parser = report_subparsers.add_parser("project", help="Report for a single project.")
+    project_parser = report_subparsers.add_parser(
+        "project",
+        help="Report for a single project.",
+    )
     project_parser.add_argument("id", type=int)
     project_parser.add_argument("--from", dest="from_date")
     project_parser.add_argument("--to", dest="to_date")

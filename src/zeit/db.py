@@ -3,7 +3,7 @@ from __future__ import annotations
 import sqlite3
 from pathlib import Path
 
-from schema import SCHEMA_SQL
+from .schema import SCHEMA_SQL
 
 DB_DIR = Path.home() / ".zeit"
 DB_PATH = DB_DIR / "zeit.db"

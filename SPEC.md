@@ -44,14 +44,32 @@ Regeln:
 - Archivierte Projekte dürfen keine neuen Zeiteinträge bekommen
 
 Code-Struktur:
-- `main.py`
-- `cli.py`
-- `db.py`
-- `schema.py`
-- `projects.py`
-- `time_entries.py`
-- `reports.py`
-- `utils.py`
+- `codex-zeit/`
+- `.github/workflows/tests.yml`
+- `src/zeit/__init__.py`
+- `src/zeit/__main__.py`
+- `src/zeit/cli.py`
+- `src/zeit/db.py`
+- `src/zeit/schema.py`
+- `src/zeit/projects.py`
+- `src/zeit/time_entries.py`
+- `src/zeit/reports.py`
+- `src/zeit/utils.py`
+- `tests/__init__.py`
+- `tests/helpers.py`
+- `tests/test_projects.py`
+- `tests/test_time_entries.py`
+- `tests/test_reports.py`
+- `tests/test_cli.py`
+- `README.md`
+- `SPEC.md`
+- `zeit`
+
+Verzeichnisstruktur:
+- Der Python-Code für die Anwendung soll nicht im Projekt-Root liegen
+- Lege den Anwendungscode unter `src/zeit/` ab
+- Verwende package-relative Imports innerhalb von `src/zeit/`
+- Das Root-Skript `zeit` dient nur als kleiner Einstiegspunkt und startet die CLI aus dem Paket
 
 Tests:
 - Erzeuge automatische Tests für jedes Feature
