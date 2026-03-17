@@ -44,32 +44,33 @@ Regeln:
 - Archivierte Projekte dürfen keine neuen Zeiteinträge bekommen
 
 Code-Struktur:
-- `codex-zeit/`
-- `.github/workflows/tests.yml`
-- `src/zeit/__init__.py`
-- `src/zeit/__main__.py`
-- `src/zeit/cli.py`
-- `src/zeit/db.py`
-- `src/zeit/schema.py`
-- `src/zeit/projects.py`
-- `src/zeit/time_entries.py`
-- `src/zeit/reports.py`
-- `src/zeit/utils.py`
-- `tests/__init__.py`
-- `tests/helpers.py`
-- `tests/test_projects.py`
-- `tests/test_time_entries.py`
-- `tests/test_reports.py`
-- `tests/test_cli.py`
-- `README.md`
-- `SPEC.md`
-- `zeit`
+- Projekt-Root: `codex-zeit/`
+- Workflow: `.github/workflows/tests.yml`
+- Anwendungscode: `src/zeit/__init__.py`
+- Anwendungscode: `src/zeit/__main__.py`
+- Anwendungscode: `src/zeit/cli.py`
+- Anwendungscode: `src/zeit/db.py`
+- Anwendungscode: `src/zeit/schema.py`
+- Anwendungscode: `src/zeit/projects.py`
+- Anwendungscode: `src/zeit/time_entries.py`
+- Anwendungscode: `src/zeit/reports.py`
+- Anwendungscode: `src/zeit/utils.py`
+- Tests: `tests/__init__.py`
+- Tests: `tests/helpers.py`
+- Tests: `tests/test_projects.py`
+- Tests: `tests/test_time_entries.py`
+- Tests: `tests/test_reports.py`
+- Tests: `tests/test_cli.py`
+- Dokumentation: `README.md`
+- Spezifikation: `SPEC.md`
+- Einstiegsskript im Root: `zeit`
 
 Verzeichnisstruktur:
 - Der Python-Code für die Anwendung soll nicht im Projekt-Root liegen
 - Lege den Anwendungscode unter `src/zeit/` ab
 - Verwende package-relative Imports innerhalb von `src/zeit/`
 - Das Root-Skript `zeit` dient nur als kleiner Einstiegspunkt und startet die CLI aus dem Paket
+- Die Anwendung soll sowohl über `./zeit` als auch über `PYTHONPATH=src python3 -m zeit` startbar sein
 
 Tests:
 - Erzeuge automatische Tests für jedes Feature
@@ -79,6 +80,7 @@ Tests:
 - Die Tests dürfen nicht die echte Datei `~/.zeit/zeit.db` verändern
 - Verwende für Tests eine temporäre SQLite-Datei oder ein isoliertes Test-Verzeichnis
 - Teste sowohl Fachlogik als auch CLI-Verhalten
+- Die Tests sollen vom Projekt-Root aus mit `python3 -m unittest discover -s tests -v` ausführbar sein
 
 Mindestens abzudeckende Testfälle:
 - Projekt anlegen
@@ -108,13 +110,6 @@ Validierungs- und Fehlerfälle, die automatisch getestet werden müssen:
 - Archiviertes Projekt darf keinen neuen Zeiteintrag erhalten
 - Ungültiger Zeitraumfilter (`from` nach `to`) wird abgelehnt
 
-Zusätzliche Dateien:
-- `tests/test_projects.py`
-- `tests/test_time_entries.py`
-- `tests/test_reports.py`
-- `tests/test_cli.py`
-- Optional gemeinsame Hilfen in `tests/helpers.py`
-
 Implementiere:
 - saubere Validierung
 - klare Fehlermeldungen
@@ -135,6 +130,7 @@ Zusätzlich:
 - Erzeuge eine kurze `README.md`
 - Zeige dort Installations-/Startbeispiele
 - Zeige Beispielbefehle
-- Ergänze im `README.md`, wie die Tests ausgeführt werden, z. B. `python -m unittest`
+- Ergänze im `README.md`, wie die Tests ausgeführt werden, z. B. `python3 -m unittest discover -s tests -v`
+- Beschreibe im `README.md` sowohl den Start über `./zeit` als auch über `python3 -m zeit`
 
 Liefere den vollständigen Code aller Dateien.
