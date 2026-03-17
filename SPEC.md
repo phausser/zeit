@@ -61,6 +61,7 @@ Code-Struktur:
 - Tests: `tests/test_time_entries.py`
 - Tests: `tests/test_reports.py`
 - Tests: `tests/test_cli.py`
+- Tests: `tests/test_acceptance.py`
 - Dokumentation: `README.md`
 - Spezifikation: `SPEC.md`
 - Einstiegsskript im Root: `zeit`
@@ -80,6 +81,7 @@ Tests:
 - Die Tests dürfen nicht die echte Datei `~/.zeit/zeit.db` verändern
 - Verwende für Tests eine temporäre SQLite-Datei oder ein isoliertes Test-Verzeichnis
 - Teste sowohl Fachlogik als auch CLI-Verhalten
+- Ergänze mindestens einen Akzeptanztest als End-to-End-Nutzerablauf über die CLI
 - Die Tests sollen vom Projekt-Root aus mit `python3 -m unittest discover -s tests -v` ausführbar sein
 
 Mindestens abzudeckende Testfälle:
@@ -98,6 +100,7 @@ Mindestens abzudeckende Testfälle:
 - Reports mit Zeitraumfilter
 - Automatische Datenbank-Initialisierung beim ersten Start
 - Foreign Keys sind aktiv
+- Ein vollständiger Akzeptanztest für einen realistischen Nutzerablauf über mehrere CLI-Befehle
 
 Validierungs- und Fehlerfälle, die automatisch getestet werden müssen:
 - Leerer Projektname wird abgelehnt
@@ -109,6 +112,17 @@ Validierungs- und Fehlerfälle, die automatisch getestet werden müssen:
 - Nicht existierendes Projekt wird abgelehnt
 - Archiviertes Projekt darf keinen neuen Zeiteintrag erhalten
 - Ungültiger Zeitraumfilter (`from` nach `to`) wird abgelehnt
+
+Akzeptanztest:
+- Lege `tests/test_acceptance.py` an
+- Der Akzeptanztest soll die Anwendung aus Nutzersicht Ende-zu-Ende über die CLI prüfen
+- Mindestens ein Szenario soll enthalten:
+- Projekt anlegen
+- Mehrere Zeiteinträge hinzufügen
+- Zeiteinträge auflisten
+- Projekt-Report mit korrekter Summe prüfen
+- Projekt archivieren
+- Versuch eines weiteren Zeiteintrags nach Archivierung mit klarer Fehlermeldung und Exit-Code `1`
 
 Implementiere:
 - saubere Validierung
