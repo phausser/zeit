@@ -27,6 +27,8 @@ Die Datenbank wird beim ersten Start automatisch unter `~/.zeit/zeit.db` angeleg
 python3 -m unittest discover -s tests -v
 ```
 
+In GitHub werden die Tests außerdem automatisch per GitHub Actions bei Pushes und Pull Requests ausgeführt.
+
 ## Beispiele
 
 ```bash
