@@ -5,6 +5,7 @@ Wichtige Vorgaben:
 - Keine externen Dependencies
 - SQLite nur über `sqlite3`
 - CLI nur über `argparse`
+- Tests nur mit Python-Standardbibliothek, z. B. `unittest`
 - Python 3.11+
 - Mehrere Dateien
 - Sofort lauffähig
@@ -52,11 +53,63 @@ Code-Struktur:
 - `reports.py`
 - `utils.py`
 
+Tests:
+- Erzeuge automatische Tests für jedes Feature
+- Nutze nur Python-Standardbibliothek, z. B. `unittest`, `tempfile`, `subprocess`
+- Lege die Tests in mehreren Dateien unter `tests/` ab
+- Die Tests müssen ohne manuelle Vorbereitung ausführbar sein
+- Die Tests dürfen nicht die echte Datei `~/.zeit/zeit.db` verändern
+- Verwende für Tests eine temporäre SQLite-Datei oder ein isoliertes Test-Verzeichnis
+- Teste sowohl Fachlogik als auch CLI-Verhalten
+
+Mindestens abzudeckende Testfälle:
+- Projekt anlegen
+- Projekt mit Beschreibung anlegen
+- Projekt bearbeiten
+- Projekt auflisten
+- Archivierte Projekte mit `--all` sehen
+- Projekt archivieren
+- Projekt wieder aktivieren
+- Zeiteintrag hinzufügen
+- Zeiteinträge mit Projektfilter auflisten
+- Zeiteinträge mit Zeitraumfilter auflisten
+- Report `by-project`
+- Report für einzelnes Projekt
+- Reports mit Zeitraumfilter
+- Automatische Datenbank-Initialisierung beim ersten Start
+- Foreign Keys sind aktiv
+
+Validierungs- und Fehlerfälle, die automatisch getestet werden müssen:
+- Leerer Projektname wird abgelehnt
+- Doppelter Projektname wird abgelehnt
+- Ungültiges Datum wird abgelehnt
+- Falsches Datumsformat wird abgelehnt
+- Stunden <= 0 werden abgelehnt
+- Stunden > 24 werden abgelehnt
+- Nicht existierendes Projekt wird abgelehnt
+- Archiviertes Projekt darf keinen neuen Zeiteintrag erhalten
+- Ungültiger Zeitraumfilter (`from` nach `to`) wird abgelehnt
+
+Zusätzliche Dateien:
+- `tests/test_projects.py`
+- `tests/test_time_entries.py`
+- `tests/test_reports.py`
+- `tests/test_cli.py`
+- Optional gemeinsame Hilfen in `tests/helpers.py`
+
 Implementiere:
 - saubere Validierung
 - klare Fehlermeldungen
 - tabellarische Konsolenausgabe
 - type hints
+- orientiere dich am Style Guide aus PEP 8 (`https://peps.python.org/pep-0008/`)
+- achte insbesondere auf lesbare Benennung, konsistente Einrückung mit 4 Spaces, sinnvolle Leerzeilen, saubere Import-Gruppierung und gut umbrechbare Zeilen
+- der Code soll maximal verständlich sein
+- priorisiere Klarheit und Nachvollziehbarkeit vor Kürze, Abstraktion oder cleveren Patterns
+- Funktionen und Module sollen klein, direkt und leicht lesbar bleiben
+- verwende nur so viel Abstraktion wie für diese kleine Anwendung wirklich nötig ist
+- schreibe Code so, dass auch Python-Einsteiger die Struktur schnell verstehen können
+- bevorzuge gut lesbaren, konsistenten Code statt cleverer, unnötig komplexer Konstruktionen
 - einfache, gut lesbare Struktur
 - kein Overengineering
 
@@ -64,5 +117,6 @@ Zusätzlich:
 - Erzeuge eine kurze `README.md`
 - Zeige dort Installations-/Startbeispiele
 - Zeige Beispielbefehle
+- Ergänze im `README.md`, wie die Tests ausgeführt werden, z. B. `python -m unittest`
 
 Liefere den vollständigen Code aller Dateien.
